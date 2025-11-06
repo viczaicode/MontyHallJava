@@ -14,10 +14,7 @@ import view.vetelkedoView;
  */
 public class vetelkedoController {
     
-    private doorModel ajto1;
-    private doorModel ajto2;
-    private doorModel ajto3;
-    private vetelkedoView nezet;
+    private doorModel[] ajtok = new doorModel[3];
     
     public vetelkedoController() {
         ajtokLetrehozasa();
@@ -25,24 +22,18 @@ public class vetelkedoController {
     
     
     private void ajtokLetrehozasa() {
-        Random rnd = new Random();
+        Random rand = new Random();
+        int winningDoor = rand.nextInt(3) + 1; // 1–3
 
-
-        int gyoztesajto = rnd.nextInt(3) + 1; 
-
-        ajto1 = new doorModel(1, (gyoztesajto == 1 ? 1 : 0), "src/view/kepek/csukottajto.png");
-        ajto2 = new doorModel(2, (gyoztesajto == 2 ? 1 : 0), "src/view/kepek/csukottajto.png");
-        ajto3 = new doorModel(3, (gyoztesajto == 3 ? 1 : 0), "src/view/kepek/csukottajto.png");
+        for (int i = 0; i < 3; i++) {
+            int doorId = i + 1;
+            int prize = (doorId == winningDoor) ? 1 : 0;
+            ajtok[i] = new doorModel(doorId, prize, "src/view/kepek/csukottajto.png");
+        }
     }
 
-    public doorModel getDoor1() { 
-        return ajto1; 
-    }
-    public doorModel getDoor2() { 
-        return ajto2; 
-    }
-    public doorModel getDoor3() { 
-        return ajto3; 
+    public doorModel[] getDoors() {
+        return ajtok;
     }
     
 }

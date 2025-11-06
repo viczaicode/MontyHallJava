@@ -19,7 +19,10 @@ public class Program {
         
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new vetelkedoView().setVisible(true);
+                vetelkedoView view = new vetelkedoView();
+                view.setVisible(true);
+                view.setLocationRelativeTo(null);
+                
             }
         });
         

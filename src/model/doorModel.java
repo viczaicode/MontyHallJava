@@ -14,6 +14,7 @@ public class doorModel {
     public doorModel(int id, int prize, String eleres) {
         this.setId(id);
         this.setPrize(prize);
+        this.setImagePath(eleres);
     }
 
     public void setId(int id) {

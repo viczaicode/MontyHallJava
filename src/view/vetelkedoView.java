@@ -4,6 +4,16 @@
  */
 package view;
 
+import controller.vetelkedoController;
+import java.awt.FlowLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import model.doorModel;
+
 /**
  *
  * @author viczai.p.milan
@@ -14,9 +24,52 @@ public class vetelkedoView extends javax.swing.JFrame {
      * Creates new form vetelkedoView
      */
     
+    private vetelkedoController controller;
+    private JLabel[] doorLabels = new JLabel[3];
+    
     
     public vetelkedoView() {
+        
         initComponents();
+         controller = new vetelkedoController();
+        setupUI();
+    }
+    
+    
+    private void setupUI() {
+        setTitle("Monty Hall Játék");
+        setSize(1000, 600);
+        setLayout(new FlowLayout());
+
+        doorModel[] ajtok = controller.getDoors();
+        
+        
+
+        for (int i = 0; i < ajtok.length; i++) {
+            doorModel ajto = ajtok[i];
+            ImageIcon icon = new ImageIcon(ajto.getImagePath().toString());
+
+            JLabel label = new JLabel(icon);
+            
+             //Kattintás esemény
+            label.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    if (ajto.getPrize() == 1) {
+                        label.setIcon(new ImageIcon("src/view/kepek/nyitottajto.png"));
+                        JOptionPane.showMessageDialog(null, "🎉 Gratulálok, nyertél egy autót!");
+                    } else {
+                        label.setIcon(new ImageIcon("src/view/kepek/nyitottajto.png"));
+                        JOptionPane.showMessageDialog(null, "😅 Ez most egy kecske volt!");
+                    }
+                }
+            });
+
+            doorLabels[i] = label;
+            add(label);
+        }
+
+        setVisible(true);
     }
     
     
@@ -30,52 +83,51 @@ public class vetelkedoView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        lblAjto1 = new javax.swing.JLabel();
-        lblAjto2 = new javax.swing.JLabel();
-        lblAjto3 = new javax.swing.JLabel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        lblAjto1.setText("a1");
+        jMenu1.setText("File");
 
-        lblAjto2.setText("a2");
+        jMenuItem1.setText("ujJatek");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem1);
 
-        lblAjto3.setText("a3");
+        jMenuBar1.add(jMenu1);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(51, 51, 51)
-                .addComponent(lblAjto1)
-                .addGap(94, 94, 94)
-                .addComponent(lblAjto2)
-                .addGap(82, 82, 82)
-                .addComponent(lblAjto3)
-                .addContainerGap(137, Short.MAX_VALUE))
+            .addGap(0, 400, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(112, 112, 112)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblAjto1)
-                    .addComponent(lblAjto2)
-                    .addComponent(lblAjto3))
-                .addContainerGap(172, Short.MAX_VALUE))
+            .addGap(0, 277, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        setupUI();
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     /**
      * @param args the command line arguments
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel lblAjto1;
-    private javax.swing.JLabel lblAjto2;
-    private javax.swing.JLabel lblAjto3;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     // End of variables declaration//GEN-END:variables
 }
